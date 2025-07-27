@@ -17,7 +17,7 @@ A console-based productivity tool built with Java, designed to help you manage p
 - Java 17+
 - Multithreading
 - File I/O (JSON or CSV format)
-- Optional: Java Sound API for audio
+- Java Sound API for audio
 
 ## 📁 Project Structure
 
