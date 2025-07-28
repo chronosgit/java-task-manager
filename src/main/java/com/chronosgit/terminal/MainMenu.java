@@ -1,37 +1,38 @@
 package com.chronosgit.terminal;
 
-import com.chronosgit.terminal.enums.Color;
-import com.chronosgit.terminal.enums.TextStyle;
+import org.jline.utils.AttributedStringBuilder;
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStyle;
 
 public class MainMenu {
     private void printLogo() {
-        TerminalAnsiManager.printText("+-------------------------------+\n" + //
+        new AttributedString("+-------------------------------+\n" + //
                 "| T A S K   ✿ ✿   M A N A G E R |\n" + //
                 "+-------------------------------+\n" + //
-                "", Color.BRIGHT_CYAN, TextStyle.BOLD);
+                "", AttributedStyle.DEFAULT.bold().foreground(AttributedStyle.CYAN)).print(JLine.terminal);
+
+        JLine.terminal.flush();
     }
 
     private void printAppInfo() {
-        System.out.print("Welcome to ");
+        AttributedStringBuilder sb = new AttributedStringBuilder();
 
-        TerminalAnsiManager.printText("Task Manager", Color.BRIGHT_CYAN);
+        sb.append("Welcome to ", AttributedStyle.DEFAULT);
+        sb.append("Task Manager", AttributedStyle.DEFAULT.bold().foreground(AttributedStyle.CYAN));
+        sb.append("!\nA simple CLI to help you ", AttributedStyle.DEFAULT);
+        sb.append("organize tasks efficiently\n", AttributedStyle.DEFAULT.italic());
+        sb.append("Made by © chronosgit\n", AttributedStyle.DEFAULT);
 
-        System.out.println("!");
-
-        System.out.print("A simple CLI to help you ");
-
-        TerminalAnsiManager.printText("organize tasks efficiently.\n", TextStyle.ITALIC);
-
-        System.out.println("Made by © chronosgit");
+        sb.toAttributedString().print(JLine.terminal);
+        JLine.terminal.flush();
     }
 
     public void printMainMenu() {
-        System.out.println();
-
         printLogo();
 
         printAppInfo();
 
-        System.out.println();
+        JLine.terminal.writer().println();
+        JLine.terminal.flush();
     }
 }

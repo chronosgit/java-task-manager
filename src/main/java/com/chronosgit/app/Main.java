@@ -4,8 +4,14 @@ import com.chronosgit.terminal.MainMenu;;
 
 public class Main {
     public static void main(String[] args) {
-        MainMenu mainMenu = new MainMenu();
+        try {
+            MainMenu mainMenu = new MainMenu();
 
-        mainMenu.printMainMenu();
+            mainMenu.printMainMenu();
+        } catch (RuntimeException e) {
+            System.err.println("Something went wrong: " + e.getMessage());
+
+            System.exit(1);
+        }
     }
 }
