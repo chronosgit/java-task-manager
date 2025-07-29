@@ -11,11 +11,21 @@ public class StylePreset {
     public static int COLOR_MAIN;
 
     static {
-        updateColorMain();
+        try {
+            updateColorMain();
+        } catch (ExceptionInInitializerError e) {
+            COLOR_MAIN = AttributedStyle.CYAN;
+        }
     }
 
     public static void updateColorMain() {
         String color = Settings.getPropertyFromSettings("color");
+
+        if (color == null) {
+            COLOR_MAIN = AttributedStyle.CYAN;
+
+            return;
+        }
 
         switch (color) {
             case "BLUE":

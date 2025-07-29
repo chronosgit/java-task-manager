@@ -37,7 +37,7 @@ class CommandsHandler {
         commands.put("settings show username", args -> Settings.renderUsername());
         numOfArgs.put("settings show username", 0);
 
-        commands.put("settings set color", args -> Settings.setColor(args[0]));
+        commands.put("settings set color", args -> Settings.setColor(args[0].toUpperCase()));
         numOfArgs.put("settings set color", 1);
 
         commands.put("settings set username", args -> Settings.setUsername(args[0]));

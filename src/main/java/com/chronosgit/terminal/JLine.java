@@ -26,4 +26,9 @@ public class JLine {
             throw new RuntimeException("Failed to initialize JLine terminal and line reader", e);
         }
     }
+
+    static public void clearScreen() {
+        terminal.puts(org.jline.utils.InfoCmp.Capability.clear_screen);
+        terminal.flush();
+    }
 }
