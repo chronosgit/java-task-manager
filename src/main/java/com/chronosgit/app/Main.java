@@ -1,5 +1,7 @@
 package com.chronosgit.app;
 
+import com.chronosgit.terminal.JLine;
+
 public class Main {
     public static void main(String[] args) {
         try {
@@ -10,6 +12,9 @@ public class Main {
             // Managing redrawing
             AppState.State renderedState = null;
             boolean needsRedraw = false;
+
+            // Clear screen once
+            JLine.clearScreen();
 
             while (true) {
                 if (renderedState != appState.getState()) {

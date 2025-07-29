@@ -1,7 +1,6 @@
 package com.chronosgit.settings;
 
 import java.util.Properties;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,20 +9,32 @@ import com.chronosgit.terminal.JLine;
 import com.chronosgit.terminal.StylePreset;
 
 public class Settings {
-    private static String filePath = "data/settings.properties";
-    public static String[] allowedColors = new String[] { "CYAN", "BLUE", "MAGENTA", "YELLOW" };
+    private static String filePath = "src/main/.data/settings.properties";
+    public static String[] allowedColors = new String[] { "BLUE", "MAGENTA", "YELLOW", "CYAN" };
+
+    private static void loadProperties(Properties props) {
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            props.load(fis);
+        } catch (IOException e) {
+            return;
+        }
+    }
+
+    private static boolean storeProperties(Properties props) {
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            props.store(fos, "Stored property");
+        } catch (IOException e) {
+
+            return false;
+        }
+
+        return true;
+    }
 
     public static String getPropertyFromSettings(String key) {
         Properties props = new Properties();
 
-        try (FileInputStream fis = new FileInputStream(filePath)) {
-            props.load(fis);
-        } catch (IOException e) {
-            JLine.terminal.writer().write("\nCouldn't read the settings file.\n");
-
-            JLine.terminal.writer().println();
-            JLine.terminal.flush();
-        }
+        loadProperties(props);
 
         return props.getProperty(key);
     }
@@ -60,21 +71,16 @@ public class Settings {
     public static boolean setProperty(String key, String value) {
         Properties p = new Properties();
 
+        Settings.loadProperties(p);
+
         p.setProperty(key, value);
 
-        try (FileOutputStream fos = new FileOutputStream(filePath)) {
-            p.store(fos, "Custom color");
-        } catch (IOException e) {
-            JLine.terminal.writer().write("\nCouldn't access the settings file.\n\n");
-            JLine.terminal.flush();
-
-            return false;
-        }
-
-        return true;
+        return Settings.storeProperties(p);
     }
 
     public static void setColor(String newColor) {
+        newColor = newColor.toUpperCase();
+
         boolean flag = false;
 
         for (String ac : Settings.allowedColors) {
@@ -84,7 +90,7 @@ public class Settings {
         }
 
         if (!flag) {
-            JLine.terminal.writer().write("\nInvalid color.\nAllowed colors: BLUE, CYAN, MAGENTA, YELLOW.\n\n");
+            JLine.terminal.writer().write("\nInvalid color.\nAllowed colors: BLUE, MAGENTA, YELLOW, CYAN.\n\n");
             JLine.terminal.flush();
 
             return;
