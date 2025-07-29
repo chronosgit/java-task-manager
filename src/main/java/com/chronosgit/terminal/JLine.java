@@ -2,14 +2,12 @@ package com.chronosgit.terminal;
 
 import java.io.IOException;
 
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
+import org.jline.terminal.*;
+import org.jline.reader.*;
 
 public class JLine {
-    static Terminal terminal;
-    static LineReader reader;
+    static final public Terminal terminal;
+    static final public LineReader reader;
 
     static {
         try {
@@ -17,12 +15,15 @@ public class JLine {
                     .builder()
                     .system(true)
                     .build();
+
             reader = LineReaderBuilder
                     .builder()
                     .terminal(terminal)
+                    .appName("Task Manager")
                     .build();
+
         } catch (IOException e) {
-            throw new RuntimeException("Failed to initialize JLine terminal", e);
+            throw new RuntimeException("Failed to initialize JLine terminal and line reader", e);
         }
     }
 }
