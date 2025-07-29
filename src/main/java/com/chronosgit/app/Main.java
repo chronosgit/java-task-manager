@@ -33,14 +33,8 @@ public class Main {
                 }
             }
         } catch (RuntimeException e) {
-            System.err.println();
-
-            if (e.getMessage() != null) {
-                System.err.println("Something went wrong.");
-                System.err.println(e.getMessage());
-            }
-
-            System.err.println("Closing the app.");
+            System.err.println("\nSomething went wrong.");
+            System.err.println("Closing the app.\n");
 
             System.exit(1);
         }
