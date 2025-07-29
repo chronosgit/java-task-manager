@@ -16,7 +16,7 @@ class InputHandler {
     }
 
     void handleInput(String userInput) {
-        String[] tokens = userInput.trim().split(" ");
+        String[] tokens = userInput.trim().split("\\s+");
 
         if (tokens.length == 0) {
             return;
