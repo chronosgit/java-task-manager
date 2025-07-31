@@ -13,7 +13,6 @@ public class Main {
             AppState.State renderedState = null;
             boolean needsRedraw = false;
 
-            // Clear screen once
             JLine.clearScreen();
 
             while (true) {

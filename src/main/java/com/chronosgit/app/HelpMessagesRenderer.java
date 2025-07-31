@@ -56,17 +56,35 @@ class HelpMessagesRenderer {
 
         sb.append("\nMusic commands:\n");
 
-        sb.append("music show", StylePreset.COMMAND);
-        sb.append(" - shows the current track's name\n");
+        sb.append("music show current", StylePreset.COMMAND);
+        sb.append(" - shows the current track name and time\n");
 
-        sb.append("music stop", StylePreset.COMMAND);
-        sb.append(" - stops the music\n");
+        sb.append("music show tracks", StylePreset.COMMAND);
+        sb.append(" - lists all available tracks\n");
 
-        sb.append("music start", StylePreset.COMMAND);
-        sb.append(" - starts playing music\n");
+        sb.append("music start -s", StylePreset.COMMAND);
+        sb.append(" - starts the playback from the first track\n");
+
+        sb.append("music start <track_id>", StylePreset.COMMAND);
+        sb.append(" - starts the playback from the first or selected track\n");
+
+        sb.append("music loop", StylePreset.COMMAND);
+        sb.append(" - enables looping for the current track\n");
+
+        sb.append("music unloop", StylePreset.COMMAND);
+        sb.append(" - disables looping for the current track\n");
+
+        sb.append("music restart", StylePreset.COMMAND);
+        sb.append(" - restarts the current track from the beginning\n");
+
+        sb.append("music pause", StylePreset.COMMAND);
+        sb.append(" - pause the current track\n");
 
         sb.append("music continue", StylePreset.COMMAND);
-        sb.append(" - resumes playback\n\n");
+        sb.append(" - resumes playback from where it was paused\n");
+
+        sb.append("music stop", StylePreset.COMMAND);
+        sb.append(" - stops playback and resets the track\n\n");
 
         sb.toAttributedString().print(JLine.terminal);
         JLine.terminal.flush();
