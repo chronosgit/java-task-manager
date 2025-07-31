@@ -27,7 +27,7 @@ public class JLine {
         }
     }
 
-    static public void clearScreen() {
+    public static void clearScreen() {
         terminal.puts(org.jline.utils.InfoCmp.Capability.clear_screen);
         terminal.flush();
     }

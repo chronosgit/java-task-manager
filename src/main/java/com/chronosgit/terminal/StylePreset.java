@@ -2,11 +2,13 @@ package com.chronosgit.terminal;
 
 import org.jline.utils.AttributedStyle;
 
-import com.chronosgit.settings.Settings;
+import com.chronosgit.settings.SettingsHandler;
 
 public class StylePreset {
     public static final AttributedStyle COMMAND = AttributedStyle.DEFAULT.bold().background(AttributedStyle.WHITE)
             .foreground(AttributedStyle.BLACK);
+    public static final AttributedStyle ERROR = AttributedStyle.DEFAULT.foreground(AttributedStyle.RED + 60);
+    public static final AttributedStyle WARNING = AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW);
 
     public static int COLOR_MAIN;
 
@@ -19,7 +21,7 @@ public class StylePreset {
     }
 
     public static void updateColorMain() {
-        String color = Settings.getPropertyFromSettings("color");
+        String color = SettingsHandler.getPropertyFromSettings("color");
 
         if (color == null) {
             COLOR_MAIN = AttributedStyle.CYAN;
