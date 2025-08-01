@@ -1,13 +1,12 @@
-# Smart Task Manager (Java)
+# Task Manager
 
-A console-based productivity tool built with Java, designed to help you manage personal tasks with deadlines, priorities, and reminders. This project demonstrates core Java concepts including object-oriented programming, file I/O.
+A console-based task managing tool built with Java, designed to help you manage personal tasks with deadlines. This project demonstrates core Java concepts including object-oriented programming and file I/O.
 
 ## ✨ Features
 
 - 📝 Create and manage tasks  
 - ⏰ Set deadlines  
 - 🎵 Background music playback (runs in a separate thread)  
-- 🔔 Automatic reminders for upcoming tasks  
 - 💾 Save and load tasks to/from disk  
 - 📂 Structured using Maven conventions  
 - 🔁 Cross-platform (runs on any system with Java 17+)  
@@ -22,13 +21,13 @@ A console-based productivity tool built with Java, designed to help you manage p
 
 This project follows the standard Maven directory layout:
 
-java-task-manager/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   └── resources/
-│   └── test/
-│       ├── java/
-├── target/
-├── pom.xml
-├── README.md
+    java-task-manager/
+    ├── src/
+    │   ├── main/
+    │   │   ├── java/
+    │   │   └── resources/
+    │   └── test/
+    │       ├── java/
+    ├── target/
+    ├── pom.xml
+    ├── README.md
