@@ -16,26 +16,24 @@ import com.chronosgit.terminal.StylePreset;
 import com.chronosgit.utils.CSVEscaper;
 
 public class TasksStorage {
-    private static String filePath = "src/main/.data/.tasks.cvsv";
+    private static String filePath = "src/main/.data/.tasks.csv";
     private static boolean areTasksLoaded = true;
 
-    static List<Task> virtualTasks;
+    static List<Task> virtualTasks = new ArrayList<>();
 
     static {
         try {
             loadTasks();
         } catch (Exception e) {
             areTasksLoaded = false;
-
-            virtualTasks = new ArrayList<>();
         }
     }
 
-    public static boolean areTasksLoaded() {
+    static boolean areTasksLoaded() {
         return areTasksLoaded;
     }
 
-    public static void runIfTasksAreLoaded(Runnable action) {
+    static void runIfTasksAreLoaded(Runnable action) {
         if (!areTasksLoaded()) {
             new AttributedString(
                     "\nTasks weren't loaded correctly.\nOperation cancelled.\n\n",
@@ -48,7 +46,7 @@ public class TasksStorage {
         action.run();
     }
 
-    public static void addTask(Task t) throws RuntimeException {
+    static void addTask(Task t) throws RuntimeException {
         String csvLine = String.format("%s,%s,%s,%s,%s%n",
                 t.getId(),
                 CSVEscaper.escapeCsv(t.getTitle()),
@@ -66,7 +64,30 @@ public class TasksStorage {
         }
     }
 
-    public static void loadTasks() throws RuntimeException {
+    static void writeTasksToFile(List<Task> tasks) throws RuntimeException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))) {
+            bw.write("id,title,body,start,end");
+            bw.newLine();
+
+            for (Task task : tasks) {
+                String line = String.join(",",
+                        task.getId(),
+                        task.getTitle(),
+                        task.getBody(),
+                        task.getStartDate(),
+                        task.getEndDate());
+
+                bw.write(line);
+                bw.newLine();
+            }
+
+            virtualTasks = tasks;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write tasks to file.", e);
+        }
+    }
+
+    private static void loadTasks() throws RuntimeException {
         List<Task> tasks = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -100,6 +121,5 @@ public class TasksStorage {
         } catch (NumberFormatException e) {
             throw new RuntimeException("Invalid ID format in file.", e);
         }
-
     }
 }
