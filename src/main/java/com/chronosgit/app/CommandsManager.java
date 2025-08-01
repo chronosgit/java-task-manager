@@ -9,6 +9,8 @@ import org.jline.utils.AttributedStringBuilder;
 import com.chronosgit.music.*;
 import com.chronosgit.settings.*;
 import com.chronosgit.tasks.TasksCreator;
+import com.chronosgit.tasks.TasksDeletor;
+import com.chronosgit.tasks.TasksStorage;
 import com.chronosgit.terminal.*;
 
 class CommandsManager {
@@ -86,6 +88,9 @@ class CommandsManager {
 
         commands.put("tasks create", args -> TasksCreator.createTask(args));
         numOfArgs.put("tasks create", new Integer[] { 3, 2 });
+
+        commands.put("tasks delete", args -> TasksDeletor.deleteTasks(args));
+        numOfArgs.put("tasks delete", new Integer[] { Integer.MAX_VALUE });
     }
 
     static void manageCommand(String[] tokens) {
@@ -98,6 +103,12 @@ class CommandsManager {
                 String[] remainingArgs = Arrays.copyOfRange(tokens, i, tokens.length);
 
                 Integer[] opts = numOfArgs.get(commandKey);
+
+                if (opts[0] == Integer.MAX_VALUE && remainingArgs.length > 0) {
+                    command.run(remainingArgs);
+
+                    return;
+                }
 
                 boolean flag = false;
 
