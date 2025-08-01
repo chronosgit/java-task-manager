@@ -6,80 +6,89 @@ import java.util.Map;
 
 import org.jline.utils.AttributedStringBuilder;
 
-import com.chronosgit.music.Playback;
-import com.chronosgit.music.TracksManager;
-import com.chronosgit.settings.SettingsHandler;
+import com.chronosgit.music.*;
+import com.chronosgit.settings.*;
+import com.chronosgit.tasks.TasksCreator;
 import com.chronosgit.terminal.*;
 
-class CommandsHandler {
+class CommandsManager {
     @FunctionalInterface
     interface Command {
         void run(String[] args);
     }
 
     static final Map<String, Command> commands = new HashMap<>();
-    static final Map<String, Integer> numOfArgs = new HashMap<>();
+    static final Map<String, Integer[]> numOfArgs = new HashMap<>();
 
     static {
         commands.put("help", args -> HelpMessagesRenderer.renderHelpMessage());
-        numOfArgs.put("help", 0);
+        numOfArgs.put("help", new Integer[] { 0 });
 
-        commands.put("exit", args -> CommandsHandler.gracefulExit());
-        numOfArgs.put("exit", 0);
+        commands.put("exit", args -> CommandsManager.gracefulExit());
+        numOfArgs.put("exit", new Integer[] { 0 });
+
+        commands.put("clear", args -> JLine.clearScreen());
+        numOfArgs.put("clear", new Integer[] { 0 });
 
         commands.put("settings help", args -> HelpMessagesRenderer.renderSettingsHelpMessage());
-        numOfArgs.put("settings help", 0);
+        numOfArgs.put("settings help", new Integer[] { 0 });
 
         commands.put("settings show color", args -> SettingsHandler.renderColor());
-        numOfArgs.put("settings show color", 0);
+        numOfArgs.put("settings show color", new Integer[] { 0 });
 
         commands.put("settings show colorlist", args -> SettingsHandler.renderColorList());
-        numOfArgs.put("settings show colorlist", 0);
+        numOfArgs.put("settings show colorlist", new Integer[] { 0 });
 
         commands.put("settings show username", args -> SettingsHandler.renderUsername());
-        numOfArgs.put("settings show username", 0);
+        numOfArgs.put("settings show username", new Integer[] { 0 });
 
         commands.put("settings set color", args -> SettingsHandler.setColor(args[0].toUpperCase()));
-        numOfArgs.put("settings set color", 1);
+        numOfArgs.put("settings set color", new Integer[] { 1 });
 
         commands.put("settings set username", args -> SettingsHandler.setUsername(args[0]));
-        numOfArgs.put("settings set username", 1);
+        numOfArgs.put("settings set username", new Integer[] { 1 });
 
         commands.put("music help", args -> HelpMessagesRenderer.renderMusicHelpMessage());
-        numOfArgs.put("music help", 0);
+        numOfArgs.put("music help", new Integer[] { 0 });
 
         commands.put("music show current", args -> Playback.renderCurTrackInfo());
-        numOfArgs.put("music show current", 0);
+        numOfArgs.put("music show current", new Integer[] { 0 });
 
         commands.put("music show tracks", args -> TracksManager.renderTrackList());
-        numOfArgs.put("music show tracks", 0);
+        numOfArgs.put("music show tracks", new Integer[] { 0 });
 
         commands.put("music start -s", args -> Playback.startPlaybackFromStart());
-        numOfArgs.put("music start -s", 0);
+        numOfArgs.put("music start -s", new Integer[] { 0 });
 
         commands.put("music start", args -> Playback.startPlaybackFromTrack(args[0]));
-        numOfArgs.put("music start", 1);
+        numOfArgs.put("music start", new Integer[] { 1 });
 
         commands.put("music loop", args -> Playback.loopCurTrack());
-        numOfArgs.put("music loop", 0);
+        numOfArgs.put("music loop", new Integer[] { 0 });
 
         commands.put("music unloop", args -> Playback.unloopCurTrack());
-        numOfArgs.put("music unloop", 0);
+        numOfArgs.put("music unloop", new Integer[] { 0 });
 
         commands.put("music restart", args -> Playback.restartCurTrack());
-        numOfArgs.put("music restart", 0);
+        numOfArgs.put("music restart", new Integer[] { 0 });
 
         commands.put("music pause", args -> Playback.pauseCurTrack());
-        numOfArgs.put("music pause", 0);
+        numOfArgs.put("music pause", new Integer[] { 0 });
 
         commands.put("music continue", args -> Playback.continueCurTrack());
-        numOfArgs.put("music continue", 0);
+        numOfArgs.put("music continue", new Integer[] { 0 });
 
         commands.put("music stop", args -> Playback.stopPlayback());
-        numOfArgs.put("music stop", 0);
+        numOfArgs.put("music stop", new Integer[] { 0 });
+
+        commands.put("tasks help", args -> HelpMessagesRenderer.renderTasksHelpMessage());
+        numOfArgs.put("tasks help", new Integer[] { 0 });
+
+        commands.put("tasks create", args -> TasksCreator.createTask(args));
+        numOfArgs.put("tasks create", new Integer[] { 3, 2 });
     }
 
-    static void handleCommand(String[] tokens) {
+    static void manageCommand(String[] tokens) {
         for (int i = tokens.length; i > 0; i--) {
             String commandKey = String.join(" ", Arrays.copyOfRange(tokens, 0, i));
 
@@ -88,19 +97,27 @@ class CommandsHandler {
             if (command != null) {
                 String[] remainingArgs = Arrays.copyOfRange(tokens, i, tokens.length);
 
-                if (numOfArgs.get(commandKey) != remainingArgs.length) {
-                    CommandsHandler.renderInvalidArgsWarning(numOfArgs.get(commandKey));
+                Integer[] opts = numOfArgs.get(commandKey);
+
+                boolean flag = false;
+
+                for (int j = 0; j < opts.length; j++) {
+                    if (opts[j] == remainingArgs.length) {
+                        flag = true;
+
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    command.run(remainingArgs);
 
                     return;
                 }
-
-                command.run(remainingArgs);
-
-                return;
             }
         }
 
-        CommandsHandler.renderWrongCommandWarning();
+        CommandsManager.renderWrongCommandWarning();
     }
 
     static void renderWrongCommandWarning() {

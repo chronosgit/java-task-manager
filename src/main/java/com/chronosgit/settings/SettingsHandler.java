@@ -1,6 +1,7 @@
 package com.chronosgit.settings;
 
 import java.util.Properties;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import com.chronosgit.terminal.JLine;
 import com.chronosgit.terminal.StylePreset;
 
 public class SettingsHandler {
-    private static String filePath = "src/main/.data/settings.properties";
+    private static String filePath = "src/main/.data/.settings.properties";
     public static String[] allowedColors = new String[] { "BLUE", "MAGENTA", "YELLOW", "CYAN" };
 
     private static void loadProperties(Properties props) {
@@ -52,7 +53,7 @@ public class SettingsHandler {
     }
 
     public static void renderColorList() {
-        JLine.terminal.writer().write("\nAllowed colors: BLUE, MAGENTA, YELLOW, CYAN.\n\n");
+        JLine.terminal.writer().write("\nAllowed colors: BLUE, MAGENTA, CYAN.\n\n");
         JLine.terminal.flush();
     }
 

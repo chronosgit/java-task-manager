@@ -107,8 +107,9 @@ class HelpMessagesRenderer {
         sb.append("tasks view -u", StylePreset.COMMAND);
         sb.append(" - shows uncrossed (active) tasks\n");
 
-        sb.append("tasks create", StylePreset.COMMAND);
-        sb.append(" - creates a new task\n");
+        sb.append("tasks create <title> <body> [end_date]", StylePreset.COMMAND);
+        sb.append(
+                " - creates a new task with a title (1–50 chars), body (1–128 chars), and optional ISO end date\n");
 
         sb.append("tasks update <task-id>", StylePreset.COMMAND);
         sb.append(" - updates the task with the given ID\n");

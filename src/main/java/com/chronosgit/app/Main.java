@@ -7,7 +7,7 @@ public class Main {
         try {
             // Init
             AppState appState = new AppState();
-            InputHandler ih = new InputHandler();
+            InputManager ih = new InputManager();
 
             // Managing redrawing
             AppState.State renderedState = null;
@@ -30,10 +30,15 @@ public class Main {
                             needsRedraw = false;
                         }
 
-                        ih.handleInput(ih.promptUserInput());
+                        String input = ih.promptUserInput("prompt> ");
+
+                        if (input != null && input.trim().length() > 0) {
+                            ih.manageInput(input);
+                        }
 
                         break;
                     default:
+                        break;
                 }
             }
         } catch (RuntimeException e) {

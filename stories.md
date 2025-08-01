@@ -14,6 +14,7 @@
 
 - `help` (shows some useful commands)
 - `exit` (exits the program)
+- `clear` (clears the screen)
 
 ### Settings
 
@@ -45,7 +46,7 @@
 - `tasks view -e` (shows expired tasks)
 - `tasks view -c` (shows crossed tasks)
 - `tasks view -u` (shows uncrossed tasks)
-- `tasks create` (starts a new task creation)
+- `tasks create <title> <body> [end_date]` (creates a new task with a title (1–50 chars), body (1–128 chars), ISO start date, and optional ISO end date)
 - `tasks update <task_id>` (start updating a task with ID)
 - `tasks cross <task_id>` (crosses task/tasks with ID/IDs)
 - `tasks uncross <task_id>` (uncrosses task/tasks with ID/IDs)
