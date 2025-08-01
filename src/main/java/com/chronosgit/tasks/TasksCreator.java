@@ -22,7 +22,7 @@ public class TasksCreator {
 
         if (title == null || title.length() <= 0 || title.length() > 50) {
             new AttributedString("\nTask creation aborted.\nTitle must be between 1 and 50 characters.\n\n",
-                    StylePreset.WARNING)
+                    StylePreset.ERROR)
                     .print(JLine.terminal);
             JLine.terminal.flush();
 
@@ -31,7 +31,7 @@ public class TasksCreator {
 
         if (body == null || body.length() == 0 || body.length() > 128) {
             new AttributedString("\nTask creation aborted.\nBody must be between 1 and 128 characters.\n\n",
-                    StylePreset.WARNING)
+                    StylePreset.ERROR)
                     .print(JLine.terminal);
             JLine.terminal.flush();
 
@@ -40,7 +40,7 @@ public class TasksCreator {
 
         if (endDate.length() > 0 && !ISODateVerifier.verifyDate(endDate)) {
             new AttributedString("\nTask creation aborted.\nEnd date must be of format yyyy-MM-dd.\n\n",
-                    StylePreset.WARNING)
+                    StylePreset.ERROR)
                     .print(JLine.terminal);
             JLine.terminal.flush();
 
@@ -49,6 +49,15 @@ public class TasksCreator {
 
         Task t = new Task(title, body, endDate);
 
-        TasksStorage.addTask(t);
+        try {
+            TasksStorage.runIfTasksAreLoaded(() -> {
+                TasksStorage.addTask(t);
+            });
+        } catch (RuntimeException e) {
+            new AttributedString("\nTask creation aborted.\nCouldn't write to file.\n\n",
+                    StylePreset.ERROR)
+                    .print(JLine.terminal);
+            JLine.terminal.flush();
+        }
     }
 }

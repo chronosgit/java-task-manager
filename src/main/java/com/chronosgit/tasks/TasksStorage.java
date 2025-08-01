@@ -9,10 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jline.utils.*;
+
+import com.chronosgit.terminal.JLine;
+import com.chronosgit.terminal.StylePreset;
 import com.chronosgit.utils.CSVEscaper;
 
 public class TasksStorage {
-    private static String filePath = "src/main/.data/.tasks.csv";
+    private static String filePath = "src/main/.data/.tasks.cvsv";
+    private static boolean areTasksLoaded = true;
 
     static List<Task> virtualTasks;
 
@@ -20,11 +25,30 @@ public class TasksStorage {
         try {
             loadTasks();
         } catch (Exception e) {
+            areTasksLoaded = false;
+
             virtualTasks = new ArrayList<>();
         }
     }
 
-    public static void addTask(Task t) {
+    public static boolean areTasksLoaded() {
+        return areTasksLoaded;
+    }
+
+    public static void runIfTasksAreLoaded(Runnable action) {
+        if (!areTasksLoaded()) {
+            new AttributedString(
+                    "\nTasks weren't loaded correctly.\nOperation cancelled.\n\n",
+                    StylePreset.ERROR).print(JLine.terminal);
+
+            JLine.terminal.flush();
+            return;
+        }
+
+        action.run();
+    }
+
+    public static void addTask(Task t) throws RuntimeException {
         String csvLine = String.format("%s,%s,%s,%s,%s%n",
                 t.getId(),
                 CSVEscaper.escapeCsv(t.getTitle()),
@@ -66,6 +90,8 @@ public class TasksStorage {
                 Task task = new Task(id, title, body, startDate, endDate);
 
                 tasks.add(task);
+
+                virtualTasks = tasks;
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File couldn't be found: " + filePath, e);
@@ -75,6 +101,5 @@ public class TasksStorage {
             throw new RuntimeException("Invalid ID format in file.", e);
         }
 
-        virtualTasks = tasks;
     }
 }
