@@ -7,7 +7,7 @@ import com.chronosgit.settings.SettingsHandler;
 public class StylePreset {
     public static final AttributedStyle COMMAND = AttributedStyle.DEFAULT.bold().background(AttributedStyle.WHITE)
             .foreground(AttributedStyle.BLACK);
-    public static final AttributedStyle ERROR = AttributedStyle.DEFAULT.foreground(AttributedStyle.RED + 60);
+    public static final AttributedStyle ERROR = AttributedStyle.DEFAULT.foreground(AttributedStyle.RED);
     public static final AttributedStyle WARNING = AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW);
 
     public static int COLOR_MAIN;
