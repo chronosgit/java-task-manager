@@ -31,3 +31,24 @@ This project follows the standard Maven directory layout:
     ├── target/
     ├── pom.xml
     ├── README.md
+
+
+## How to use
+
+1. Install JDK.
+1. Clone the repository.
+1. Create two files inside `src/main/.data` directory:
+    - `.settings.properties`
+    - `.tasks.csv `
+
+In `.settings.properties`, add your settings like this:
+
+    These are settings
+    Thu Jul 31 18:27:33 PDT 2025
+    color=
+    username=
+
+In `.tasks.csv`, add the CSV header and a mandatory empty line below it:
+
+    id,title,body,start,end
+    [mandatory empty line here]
