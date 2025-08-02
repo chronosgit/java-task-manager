@@ -12,10 +12,11 @@ public class Task {
     private String id;
     private String title;
     private String body;
+    private boolean isCompleted;
     private String startDate;
     private String endDate;
 
-    public Task(String id, String title, String body, String startDate, String endDate) {
+    public Task(String id, String title, String body, boolean isCompleted, String startDate, String endDate) {
         if (!ISODateVerifier.verifyDate(endDate)) {
             endDate = "";
         }
@@ -23,6 +24,7 @@ public class Task {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.isCompleted = isCompleted;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -35,6 +37,7 @@ public class Task {
         this.id = IdGenerator.generateRandomHash();
         this.title = title;
         this.body = body;
+        this.isCompleted = false;
         this.startDate = LocalDate.now().toString();
         this.endDate = endDate;
     }
@@ -49,6 +52,10 @@ public class Task {
 
     public String getBody() {
         return this.body;
+    }
+
+    public boolean getIsCompleted() {
+        return this.isCompleted;
     }
 
     public String getStartDate() {
@@ -66,6 +73,7 @@ public class Task {
         sb.append("ID: " + this.id + "\n");
         sb.append("Title: " + this.title + "\n");
         sb.append("Body: " + this.body + "\n");
+        sb.append(this.isCompleted ? "Completed.\n" : "Not completed.\n");
         sb.append("Start date: " + this.startDate + "\n");
         sb.append("End date: " + (endDate == null || endDate.isEmpty() ? "N/A" : endDate) + "\n\n");
 

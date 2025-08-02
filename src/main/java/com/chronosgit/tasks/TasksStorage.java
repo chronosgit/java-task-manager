@@ -47,10 +47,11 @@ public class TasksStorage {
     }
 
     static void addTask(Task t) throws RuntimeException {
-        String csvLine = String.format("%s,%s,%s,%s,%s%n",
+        String csvLine = String.format("%s,%s,%s,%b,%s,%s%n",
                 t.getId(),
                 CSVEscaper.escapeCsv(t.getTitle()),
                 CSVEscaper.escapeCsv(t.getBody()),
+                t.getIsCompleted(),
                 t.getStartDate(),
                 t.getEndDate());
 
@@ -66,7 +67,7 @@ public class TasksStorage {
 
     static void writeTasksToFile(List<Task> tasks) throws RuntimeException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, false))) {
-            bw.write("id,title,body,start,end");
+            bw.write("id,title,body,isCompleted,start,end");
             bw.newLine();
 
             for (Task task : tasks) {
@@ -74,8 +75,11 @@ public class TasksStorage {
                         task.getId(),
                         task.getTitle(),
                         task.getBody(),
+                        Boolean.toString(task.getIsCompleted()),
                         task.getStartDate(),
                         task.getEndDate());
+
+                System.out.println(line);
 
                 bw.write(line);
                 bw.newLine();
@@ -105,10 +109,11 @@ public class TasksStorage {
                 String id = fields[0].trim();
                 String title = fields[1].trim();
                 String body = fields[2].trim();
-                String startDate = fields[3].trim();
-                String endDate = fields[4].trim();
+                boolean isCompleted = Boolean.parseBoolean(fields[3].trim());
+                String startDate = fields[4].trim();
+                String endDate = fields[5].trim();
 
-                Task task = new Task(id, title, body, startDate, endDate);
+                Task task = new Task(id, title, body, isCompleted, startDate, endDate);
 
                 tasks.add(task);
 
@@ -120,6 +125,8 @@ public class TasksStorage {
             throw new RuntimeException("Error reading the file.", e);
         } catch (NumberFormatException e) {
             throw new RuntimeException("Invalid ID format in file.", e);
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 }

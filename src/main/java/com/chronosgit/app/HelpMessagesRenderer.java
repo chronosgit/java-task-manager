@@ -95,17 +95,20 @@ class HelpMessagesRenderer {
 
         sb.append("\nTask commands:\n");
 
-        sb.append("tasks view", StylePreset.COMMAND);
+        sb.append("tasks view -a", StylePreset.COMMAND);
         sb.append(" - shows all tasks\n");
 
         sb.append("tasks view -e", StylePreset.COMMAND);
         sb.append(" - shows expired tasks\n");
 
         sb.append("tasks view -c", StylePreset.COMMAND);
-        sb.append(" - shows crossed-out tasks\n");
+        sb.append(" - shows completed tasks\n");
 
         sb.append("tasks view -u", StylePreset.COMMAND);
-        sb.append(" - shows uncrossed (active) tasks\n");
+        sb.append(" - shows uncompleted tasks\n");
+
+        sb.append("tasks view <task_id>", StylePreset.COMMAND);
+        sb.append(" - shows the task with ID\n");
 
         sb.append("tasks create <title> <body> [end_date]", StylePreset.COMMAND);
         sb.append(

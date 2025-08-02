@@ -10,6 +10,7 @@ import com.chronosgit.music.*;
 import com.chronosgit.settings.*;
 import com.chronosgit.tasks.TasksCreator;
 import com.chronosgit.tasks.TasksDeletor;
+import com.chronosgit.tasks.TasksViewer;
 import com.chronosgit.terminal.*;
 
 class CommandsManager {
@@ -84,6 +85,21 @@ class CommandsManager {
 
         commands.put("tasks help", args -> HelpMessagesRenderer.renderTasksHelpMessage());
         numOfArgs.put("tasks help", new Integer[] { 0 });
+
+        commands.put("tasks view -a", args -> TasksViewer.renderAllTasks());
+        numOfArgs.put("tasks view -a", new Integer[] { 0 });
+
+        commands.put("tasks view -e", args -> TasksViewer.renderExpiredTasks());
+        numOfArgs.put("tasks view -e", new Integer[] { 0 });
+
+        commands.put("tasks view -c", args -> TasksViewer.renderCompletedTasks());
+        numOfArgs.put("tasks view -c", new Integer[] { 0 });
+
+        commands.put("tasks view -u", args -> TasksViewer.renderUncompletedTasks());
+        numOfArgs.put("tasks view -u", new Integer[] { 0 });
+
+        commands.put("tasks view", args -> TasksViewer.renderTask(args[0]));
+        numOfArgs.put("tasks view", new Integer[] { 1 });
 
         commands.put("tasks create", args -> TasksCreator.createTask(args));
         numOfArgs.put("tasks create", new Integer[] { 3, 2 });
