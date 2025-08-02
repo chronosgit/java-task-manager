@@ -49,5 +49,5 @@ In `.settings.properties`, add your settings like this:
 
 In `.tasks.csv`, add the CSV header and a mandatory empty line below it:
 
-    id,title,body,start,end
+    id,title,body,isCompleted,start,end
     [mandatory empty line here]
