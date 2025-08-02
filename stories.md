@@ -42,10 +42,11 @@
 ### Task management
 
 - `tasks help` (show task commands)
-- `tasks view` (shows all tasks)
+- `tasks view -a` (shows all tasks)
 - `tasks view -e` (shows expired tasks)
-- `tasks view -c` (shows crossed tasks)
-- `tasks view -u` (shows uncrossed tasks)
+- `tasks view -c` (shows compelted tasks)
+- `tasks view -u` (shows uncompleted tasks)
+- `tasks view <task_id>` (shows the task with ID)
 - `tasks create <title> <body> [end_date]` (creates a new task with a title (1–50 chars), body (1–128 chars), ISO start date, and optional ISO end date)
 - `tasks update <task_id>` (start updating a task with ID)
 - `tasks cross <task_id>` (crosses task/tasks with ID/IDs)

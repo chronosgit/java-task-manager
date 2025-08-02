@@ -47,10 +47,11 @@ public class TasksStorage {
     }
 
     static void addTask(Task t) throws RuntimeException {
-        String csvLine = String.format("%s,%s,%s,%s,%s%n",
+        String csvLine = String.format("%s,%s,%s,%b,%s,%s%n",
                 t.getId(),
                 CSVEscaper.escapeCsv(t.getTitle()),
                 CSVEscaper.escapeCsv(t.getBody()),
+                t.getIsCompleted(),
                 t.getStartDate(),
                 t.getEndDate());
 
@@ -77,6 +78,8 @@ public class TasksStorage {
                         Boolean.toString(task.getIsCompleted()),
                         task.getStartDate(),
                         task.getEndDate());
+
+                System.out.println(line);
 
                 bw.write(line);
                 bw.newLine();
@@ -122,6 +125,8 @@ public class TasksStorage {
             throw new RuntimeException("Error reading the file.", e);
         } catch (NumberFormatException e) {
             throw new RuntimeException("Invalid ID format in file.", e);
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 }

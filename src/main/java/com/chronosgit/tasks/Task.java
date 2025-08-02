@@ -37,6 +37,7 @@ public class Task {
         this.id = IdGenerator.generateRandomHash();
         this.title = title;
         this.body = body;
+        this.isCompleted = false;
         this.startDate = LocalDate.now().toString();
         this.endDate = endDate;
     }
