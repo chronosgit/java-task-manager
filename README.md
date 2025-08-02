@@ -43,8 +43,7 @@ This project follows the standard Maven directory layout:
 
 In `.settings.properties`, add your settings like this:
 
-    These are settings
-    Thu Jul 31 18:27:33 PDT 2025
+    # Thu Jul 31 18:27:33 PDT 2025
     color=
     username=
 
