@@ -10,6 +10,7 @@ import com.chronosgit.music.*;
 import com.chronosgit.settings.*;
 import com.chronosgit.tasks.TasksCreator;
 import com.chronosgit.tasks.TasksDeletor;
+import com.chronosgit.tasks.TasksToggler;
 import com.chronosgit.tasks.TasksViewer;
 import com.chronosgit.terminal.*;
 
@@ -103,6 +104,18 @@ class CommandsManager {
 
         commands.put("tasks create", args -> TasksCreator.createTask(args));
         numOfArgs.put("tasks create", new Integer[] { 3, 2 });
+
+        commands.put("tasks complete -a", args -> TasksToggler.completeTasks(args, true));
+        numOfArgs.put("tasks complete -a", new Integer[] { 0 });
+
+        commands.put("tasks complete", args -> TasksToggler.completeTasks(args, false));
+        numOfArgs.put("tasks complete", new Integer[] { Integer.MAX_VALUE });
+
+        commands.put("tasks uncomplete -a", args -> TasksToggler.uncompleteTasks(args, true));
+        numOfArgs.put("tasks uncomplete -a", new Integer[] { 0 });
+
+        commands.put("tasks uncomplete", args -> TasksToggler.uncompleteTasks(args, false));
+        numOfArgs.put("tasks uncomplete", new Integer[] { Integer.MAX_VALUE });
 
         commands.put("tasks delete", args -> TasksDeletor.deleteTasks(args));
         numOfArgs.put("tasks delete", new Integer[] { Integer.MAX_VALUE });
