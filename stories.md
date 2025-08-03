@@ -53,4 +53,5 @@
 - `tasks complete <task_id> [<task_id> ...]` (completes task/tasks with ID/IDs)
 - `tasks uncomplete -a` (uncompletes all tasks)
 - `tasks uncomplete <task_id> [<task_id> ...]` (uncompletes task/tasks with ID/IDs)
+- `tasks delete -a` (deletes all tasks)
 - `tasks delete <task_id> [<task_id> ...]` (deletes task/tasks with ID/IDs)

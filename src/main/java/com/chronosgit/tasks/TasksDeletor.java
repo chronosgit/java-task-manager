@@ -10,8 +10,8 @@ import com.chronosgit.terminal.StylePreset;
 import com.chronosgit.utils.StringMethods;
 
 public class TasksDeletor {
-    public static void deleteTasks(String[] ids) {
-        if (ids.length == 0) {
+    public static void deleteTasks(String[] ids, boolean deleteAll) {
+        if (!deleteAll && ids.length == 0) {
             new AttributedString("\nAt least one ID must be provided.\n\n", StylePreset.ERROR)
                     .print(JLine.terminal);
             JLine.terminal.flush();
@@ -22,11 +22,13 @@ public class TasksDeletor {
         TasksStorage.runIfTasksAreLoaded(() -> {
             List<Task> persisting = new ArrayList<>();
 
-            for (int i = 0; i < TasksStorage.virtualTasks.size(); i++) {
-                Task task = TasksStorage.virtualTasks.get(i);
+            if (!deleteAll) {
+                for (int i = 0; i < TasksStorage.virtualTasks.size(); i++) {
+                    Task task = TasksStorage.virtualTasks.get(i);
 
-                if (task != null && !StringMethods.contains(ids, task.getId())) {
-                    persisting.add(task);
+                    if (!StringMethods.contains(ids, task.getId())) {
+                        persisting.add(task);
+                    }
                 }
             }
 
