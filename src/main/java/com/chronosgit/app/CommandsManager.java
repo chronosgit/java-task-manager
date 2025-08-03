@@ -117,7 +117,10 @@ class CommandsManager {
         commands.put("tasks uncomplete", args -> TasksToggler.uncompleteTasks(args, false));
         numOfArgs.put("tasks uncomplete", new Integer[] { Integer.MAX_VALUE });
 
-        commands.put("tasks delete", args -> TasksDeletor.deleteTasks(args));
+        commands.put("tasks delete -a", args -> TasksDeletor.deleteTasks(args, true));
+        numOfArgs.put("tasks delete -a", new Integer[] { 0 });
+
+        commands.put("tasks delete", args -> TasksDeletor.deleteTasks(args, false));
         numOfArgs.put("tasks delete", new Integer[] { Integer.MAX_VALUE });
     }
 

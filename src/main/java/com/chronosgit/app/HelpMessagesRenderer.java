@@ -123,6 +123,9 @@ class HelpMessagesRenderer {
         sb.append("tasks uncomplete <task-id> [<task-id>...]", StylePreset.COMMAND);
         sb.append(" - marks one or more tasks as uncompleted\n");
 
+        sb.append("tasks delete -a", StylePreset.COMMAND);
+        sb.append(" - deletes all tasks\n\n");
+
         sb.append("tasks delete <task-id> [<task-id>...]", StylePreset.COMMAND);
         sb.append(" - deletes one or more tasks\n\n");
 
