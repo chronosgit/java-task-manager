@@ -48,7 +48,7 @@
 - `tasks view -u` (shows uncompleted tasks)
 - `tasks view <task_id>` (shows the task with ID)
 - `tasks create <title> <body> [end_date]` (creates a new task with a title (1–50 chars), body (1–128 chars), ISO start date, and optional ISO end date)
-- `tasks update <task_id>` (start updating a task with ID)
+- `tasks edit <task_id>` (start editing a task with ID)
 - `tasks complete -a` (completes all tasks)
 - `tasks complete <task_id> [<task_id> ...]` (completes task/tasks with ID/IDs)
 - `tasks uncomplete -a` (uncompletes all tasks)

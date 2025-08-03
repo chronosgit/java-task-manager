@@ -114,8 +114,8 @@ class HelpMessagesRenderer {
         sb.append(
                 " - creates a new task with a title (1–50 chars), body (1–128 chars), and optional ISO end date\n");
 
-        sb.append("tasks update <task-id>", StylePreset.COMMAND);
-        sb.append(" - updates the task with the given ID\n");
+        sb.append("tasks edit <task-id>", StylePreset.COMMAND);
+        sb.append(" - start editing the task with the given ID\n");
 
         sb.append("tasks completes <task-id> [<task-id>...]", StylePreset.COMMAND);
         sb.append(" - marks one or more tasks as completed\n");
