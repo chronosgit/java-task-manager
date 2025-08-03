@@ -66,6 +66,14 @@ public class Task {
         return this.endDate;
     }
 
+    public void cross() {
+        this.isCompleted = true;
+    }
+
+    public void uncross() {
+        this.isCompleted = false;
+    }
+
     public void renderTaskInfo() {
         AttributedStringBuilder sb = new AttributedStringBuilder();
 

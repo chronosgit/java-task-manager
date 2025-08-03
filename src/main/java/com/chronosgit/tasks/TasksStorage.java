@@ -79,8 +79,6 @@ public class TasksStorage {
                         task.getStartDate(),
                         task.getEndDate());
 
-                System.out.println(line);
-
                 bw.write(line);
                 bw.newLine();
             }

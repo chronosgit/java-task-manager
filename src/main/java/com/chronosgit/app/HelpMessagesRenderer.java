@@ -117,11 +117,11 @@ class HelpMessagesRenderer {
         sb.append("tasks update <task-id>", StylePreset.COMMAND);
         sb.append(" - updates the task with the given ID\n");
 
-        sb.append("tasks cross <task-id> [<task-id>...]", StylePreset.COMMAND);
-        sb.append(" - marks one or more tasks as crossed-out\n");
+        sb.append("tasks completes <task-id> [<task-id>...]", StylePreset.COMMAND);
+        sb.append(" - marks one or more tasks as completed\n");
 
-        sb.append("tasks uncross <task-id> [<task-id>...]", StylePreset.COMMAND);
-        sb.append(" - marks one or more tasks as uncrossed\n");
+        sb.append("tasks uncomplete <task-id> [<task-id>...]", StylePreset.COMMAND);
+        sb.append(" - marks one or more tasks as uncompleted\n");
 
         sb.append("tasks delete <task-id> [<task-id>...]", StylePreset.COMMAND);
         sb.append(" - deletes one or more tasks\n\n");
