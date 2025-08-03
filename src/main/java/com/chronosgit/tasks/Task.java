@@ -1,6 +1,8 @@
 package com.chronosgit.tasks;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.jline.utils.AttributedStringBuilder;
 
@@ -72,6 +74,52 @@ public class Task {
 
     public void uncross() {
         this.isCompleted = false;
+    }
+
+    public void setTitle(String newTitle) throws IllegalArgumentException {
+        if (newTitle == null) {
+            throw new IllegalArgumentException("Title must not be null.");
+        }
+
+        String trimmed = newTitle.trim();
+
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException("Title must not be empty.");
+        }
+
+        this.title = trimmed;
+    }
+
+    public void setBody(String newBody) throws IllegalArgumentException {
+        if (newBody == null) {
+            throw new IllegalArgumentException("Body must not be null.");
+        }
+
+        String trimmed = newBody.trim();
+
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException("Body must not be empty.");
+        }
+
+        this.body = trimmed;
+    }
+
+    public void setEndDate(String newEndDate) {
+        if (newEndDate == null) {
+            throw new IllegalArgumentException("End date must not be null.");
+        }
+
+        String trimmed = newEndDate.trim();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            LocalDate.parse(trimmed, dtf);
+
+            this.endDate = newEndDate;
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("End date must be of format \"yyyy-MM-dd\".");
+        }
     }
 
     public void renderTaskInfo() {

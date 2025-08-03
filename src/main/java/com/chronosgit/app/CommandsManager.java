@@ -8,6 +8,7 @@ import org.jline.utils.AttributedStringBuilder;
 
 import com.chronosgit.music.*;
 import com.chronosgit.settings.*;
+import com.chronosgit.tasks.TaskEditor;
 import com.chronosgit.tasks.TasksCreator;
 import com.chronosgit.tasks.TasksDeletor;
 import com.chronosgit.tasks.TasksToggler;
@@ -104,6 +105,9 @@ class CommandsManager {
 
         commands.put("tasks create", args -> TasksCreator.createTask(args));
         numOfArgs.put("tasks create", new Integer[] { 3, 2 });
+
+        commands.put("tasks edit", args -> TaskEditor.editTask(args[0]));
+        numOfArgs.put("tasks edit", new Integer[] { 1 });
 
         commands.put("tasks complete -a", args -> TasksToggler.completeTasks(args, true));
         numOfArgs.put("tasks complete -a", new Integer[] { 0 });
